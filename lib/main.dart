@@ -25,9 +25,6 @@ class MyApp extends StatelessWidget {
             Task('Andar de bike'),
             Task('Meditar'),
             Task('Ir para o intervalo'),
-            Task('Ir para o intervalo'),
-            Task('Ir para o intervalo'),
-            Task('Ir para o intervalo'),
           ],
         ),
         floatingActionButton: FloatingActionButton(onPressed: () {}),
@@ -47,9 +44,9 @@ class Task extends StatefulWidget {
 
 class _TaskState extends State<Task> {
   int nivel = 0;
+
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -83,22 +80,37 @@ class _TaskState extends State<Task> {
                           )),
                       ElevatedButton(
                           onPressed: () {
-                            setState((){
+                            setState(() {
                               nivel++;
                             });
 
                             print(nivel);
-                          }, child: Icon(Icons.arrow_drop_up))
+                          },
+                          child: Icon(Icons.arrow_drop_up))
                     ],
                   ),
                 ),
-                Text(
-               'Nivel: $nivel',
-                style: TextStyle(color: Colors.white,
-                fontSize: 16),)
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: LinearProgressIndicator(
+                          color: Colors.white,
+                          value: nivel/10,
+                        ),
+                      width: 200,
+                      ),
+                      Text(
+                        'Nivel: $nivel',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
-
           ],
         ),
       ),
