@@ -21,10 +21,12 @@ class MyApp extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            Task('Aprender Flutter com o Melho Matues'),
-            Task('Andar de bike'),
-            Task('Meditar'),
-            Task('Ir para o intervalo'),
+            Task('Aprender Flutter com o Melho Matues',
+                'https://manhattanmentalhealthcounseling.com/wp-content/uploads/2019/06/Top-5-Scientific-Findings-on-MeditationMindfulness-881x710.jpeg',5),
+            Task('Andar de bike',
+                'https://tswbike.com/wp-content/uploads/2020/09/108034687_626160478000800_2490880540739582681_n-e1600200953343.jpg',4),
+            Task('Meditar', '',3),
+            Task('Ir para o intervalo', '',2),
           ],
         ),
         floatingActionButton: FloatingActionButton(onPressed: () {}),
@@ -35,8 +37,11 @@ class MyApp extends StatelessWidget {
 
 class Task extends StatefulWidget {
   final String nome;
+  final String foto;
+  final int dificuldade;
 
-  const Task(this.nome, {Key? key}) : super(key: key);
+  const Task(this.nome, this.foto, this.dificuldade, {Key? key})
+      : super(key: key);
 
   @override
   State<Task> createState() => _TaskState();
@@ -68,25 +73,88 @@ class _TaskState extends State<Task> {
                         color: Colors.black26,
                         width: 80,
                         height: 100,
+                        child: Image.network(
+                          widget.foto,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                              width: 200,
+                              child: Text(
+                                widget.nome,
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: (widget.dificuldade >= 1)
+                                    ? Colors.blue
+                                    : Colors.blue[100],
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: (widget.dificuldade >= 2)
+                                    ? Colors.blue
+                                    : Colors.blue[100],
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: (widget.dificuldade >= 3)
+                                    ? Colors.blue
+                                    : Colors.blue[100],
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: (widget.dificuldade >= 4)
+                                    ? Colors.blue
+                                    : Colors.blue[100],
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: (widget.dificuldade >= 5)
+                                    ? Colors.blue
+                                    : Colors.blue[100],
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                       Container(
-                          width: 200,
-                          child: Text(
-                            widget.nome,
-                            style: TextStyle(
-                              fontSize: 24,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              nivel++;
-                            });
+                        height: 52,
+                        width: 82,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                nivel++;
+                              });
 
-                            print(nivel);
-                          },
-                          child: Icon(Icons.arrow_drop_up))
+                              print(nivel);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Icon(Icons.arrow_drop_up),
+                                Text(
+                                  "Lvl Up",
+                                  style: TextStyle(fontSize: 12),
+                                )
+                              ],
+                            )),
+                      )
                     ],
                   ),
                 ),
@@ -98,9 +166,9 @@ class _TaskState extends State<Task> {
                       Container(
                         child: LinearProgressIndicator(
                           color: Colors.white,
-                          value: nivel/10,
+                          value:(widget.dificuldade > 0) ? (nivel/widget.dificuldade )/10 : 1,
                         ),
-                      width: 200,
+                        width: 200,
                       ),
                       Text(
                         'Nivel: $nivel',
