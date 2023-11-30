@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool opacidade = true;
 
   // This widget is the root of your application.
   @override
@@ -18,22 +25,34 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Tarefas'),
+          leading: Icon(Icons.add_task),
         ),
-        body: ListView(
-          children: [
-            Task(
-                'Aprender Flutter com o Melho Matues',
-                'https://manhattanmentalhealthcounseling.com/wp-content/uploads/2019/06/Top-5-Scientific-Findings-on-MeditationMindfulness-881x710.jpeg',
-                5),
-            Task(
-                'Andar de bike',
-                'https://tswbike.com/wp-content/uploads/2020/09/108034687_626160478000800_2490880540739582681_n-e1600200953343.jpg',
-                4),
-            Task('Meditar', '', 3),
-            Task('Ir para o intervalo', '', 2),
-          ],
+        body: AnimatedOpacity(
+          opacity: opacidade ? 1.0 : 0.0,
+          duration: Duration(seconds: 1),
+          child: ListView(
+            children: [
+              Task(
+                  'Aprender Flutter com o Melho Matues',
+                  'https://manhattanmentalhealthcounseling.com/wp-content/uploads/2019/06/Top-5-Scientific-Findings-on-MeditationMindfulness-881x710.jpeg',
+                  5),
+              Task(
+                  'Andar de bike',
+                  'https://tswbike.com/wp-content/uploads/2020/09/108034687_626160478000800_2490880540739582681_n-e1600200953343.jpg',
+                  4),
+              Task('Meditar', '', 3),
+              Task('Ir para o intervalo', '', 2),
+            ],
+          ),
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {}),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              opacidade = !opacidade;
+            });
+          },
+          child: Icon(Icons.remove_red_eye),
+        ),
       ),
     );
   }
@@ -84,7 +103,6 @@ class _TaskState extends State<Task> {
                           borderRadius: BorderRadius.circular(4),
                           color: Colors.black26,
                         ),
-
                         width: 80,
                         height: 100,
                         child: ClipRRect(
