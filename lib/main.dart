@@ -21,12 +21,16 @@ class MyApp extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            Task('Aprender Flutter com o Melho Matues',
-                'https://manhattanmentalhealthcounseling.com/wp-content/uploads/2019/06/Top-5-Scientific-Findings-on-MeditationMindfulness-881x710.jpeg',5),
-            Task('Andar de bike',
-                'https://tswbike.com/wp-content/uploads/2020/09/108034687_626160478000800_2490880540739582681_n-e1600200953343.jpg',4),
-            Task('Meditar', '',3),
-            Task('Ir para o intervalo', '',2),
+            Task(
+                'Aprender Flutter com o Melho Matues',
+                'https://manhattanmentalhealthcounseling.com/wp-content/uploads/2019/06/Top-5-Scientific-Findings-on-MeditationMindfulness-881x710.jpeg',
+                5),
+            Task(
+                'Andar de bike',
+                'https://tswbike.com/wp-content/uploads/2020/09/108034687_626160478000800_2490880540739582681_n-e1600200953343.jpg',
+                4),
+            Task('Meditar', '', 3),
+            Task('Ir para o intervalo', '', 2),
           ],
         ),
         floatingActionButton: FloatingActionButton(onPressed: () {}),
@@ -58,24 +62,37 @@ class _TaskState extends State<Task> {
         child: Stack(
           children: [
             Container(
-              color: Colors.blue,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: Colors.blue,
+              ),
               height: 140,
             ),
             Column(
               children: [
                 Container(
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.white,
+                  ),
                   height: 100,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        color: Colors.black26,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: Colors.black26,
+                        ),
+
                         width: 80,
                         height: 100,
-                        child: Image.network(
-                          widget.foto,
-                          fit: BoxFit.cover,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Image.network(
+                            widget.foto,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       Column(
@@ -166,7 +183,9 @@ class _TaskState extends State<Task> {
                       Container(
                         child: LinearProgressIndicator(
                           color: Colors.white,
-                          value:(widget.dificuldade > 0) ? (nivel/widget.dificuldade )/10 : 1,
+                          value: (widget.dificuldade > 0)
+                              ? (nivel / widget.dificuldade) / 10
+                              : 1,
                         ),
                         width: 200,
                       ),
