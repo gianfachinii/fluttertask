@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:gerenciadordetarefas/component/dificulty.dart';
 
@@ -6,9 +7,7 @@ class Task extends StatefulWidget {
   final String foto;
   final int dificuldade;
 
-
-  const Task(this.nome, this.foto, this.dificuldade,  {Key? key})
-      : super(key: key);
+  const Task(this.nome, this.foto, this.dificuldade, {Key? key}) : super(key: key);
 
   @override
   State<Task> createState() => _TaskState();
@@ -19,6 +18,15 @@ class _TaskState extends State<Task> {
 
   @override
   Widget build(BuildContext context) {
+    // Defina uma cor padrão para o container
+    Color containerColor = Colors.blue;
+
+    // Verifique se o nível atingiu 10 e atualize a cor conforme necessário
+    if (nivel >= 10) {
+      // Gere uma cor aleatória
+      containerColor = _generateRandomColor();
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -27,7 +35,7 @@ class _TaskState extends State<Task> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                color: Colors.blue,
+                color: containerColor, // Use a cor dinâmica aqui
               ),
               height: 140,
             ),
@@ -62,41 +70,41 @@ class _TaskState extends State<Task> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                              width: 200,
-                              child: Text(
-                                widget.nome,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              )
+                            width: 200,
+                            child: Text(
+                              widget.nome,
+                              style: TextStyle(
+                                fontSize: 24,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                           ),
-                            //task anteriormente
-                          Difficulty(widget.dificuldade ),
+                          Difficulty(widget.dificuldade),
                         ],
                       ),
                       Container(
                         height: 52,
                         width: 82,
                         child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                nivel++;
-                              });
+                          onPressed: () {
+                            setState(() {
+                              nivel++;
+                            });
 
-                              print(nivel);
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Icon(Icons.arrow_drop_up),
-                                Text(
-                                  "Lvl Up",
-                                  style: TextStyle(fontSize: 12),
-                                )
-                              ],
-                            )),
+                            print(nivel);
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Icon(Icons.arrow_drop_up),
+                              Text(
+                                "Lvl Up",
+                                style: TextStyle(fontSize: 12),
+                              )
+                            ],
+                          ),
+                        ),
                       )
                     ],
                   ),
@@ -127,6 +135,17 @@ class _TaskState extends State<Task> {
           ],
         ),
       ),
+    );
+  }
+
+  // Função para gerar uma cor aleatória
+  Color _generateRandomColor() {
+    final Random random = Random();
+    return Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
     );
   }
 }

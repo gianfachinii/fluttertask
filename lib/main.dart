@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gerenciadordetarefas/screens/form_screen.dart';
 import 'package:gerenciadordetarefas/screens/tela_inicial.dart';
 
 import 'component/tasks.dart';
@@ -25,7 +26,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: InitialScreen(),
+      home: const FormScreen(),
     );
   }
 }
