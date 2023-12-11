@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:gerenciadordetarefas/screens/form_screen.dart';
-import 'package:gerenciadordetarefas/screens/tela_inicial.dart';
-
-import 'component/tasks.dart';
+import 'package:task_manager/screens/tela_inicial.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  bool opacidade = true;
 
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,7 +22,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const FormScreen(),
+      home: const InitialScreen(),
     );
   }
 }

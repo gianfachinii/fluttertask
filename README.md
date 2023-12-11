@@ -1,6 +1,6 @@
-# gerenciadordetarefas
+# task_manager
 
-A new Flutter project.
+A new Flutter task project.
 
 ## Getting Started
 
